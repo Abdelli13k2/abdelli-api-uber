@@ -1,6 +1,6 @@
 <?php
 
-require_once "../models/ChauffeurModel.php";
+require_once "models/ChauffeurModel.php";
 
 class ChauffeurController
 {
@@ -13,9 +13,13 @@ class ChauffeurController
 
     public function getAllChauffeurs()
     {
-        $chauffeurs = $this->model->getAllChauffeurs();
+        $chauffeurs = $this->model->getDBAllChauffeurs();
         echo json_encode($chauffeurs);
     }
+
+    public function getChauffeurById ($idChauffeur) {
+        echo "Affiche les informations du chauffeur : " . $idChauffeur;
+    }
 }
-$chauffeurController = new ChauffeurController();
-$chauffeurController->getAllChauffeurs();
+// $chauffeurController = new ChauffeurController();
+// $chauffeurController->getAllChauffeurs();

@@ -20,5 +20,5 @@ class ChauffeurModel
     }
 }
 
-$chauffeurModel = new ChauffeurModel();
-print_r($chauffeurModel->getDBAllChauffeurs());
+// $chauffeurModel = new ChauffeurModel();
+// print_r($chauffeurModel->getDBAllChauffeurs());
