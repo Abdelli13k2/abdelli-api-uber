@@ -1,7 +1,13 @@
-<?php
+ <?php
 require_once "./controllers/ChauffeurController.php";
+require_once "./controllers/ClientController.php";
+require_once "./controllers/TrajetController.php";
+require_once "./controllers/VoitureController.php";
 
 $chauffeurController = new ChauffeurController();
+$clientController = new ClientController();
+$trajetController = new TrajetController();
+$voitureController = new VoitureController();
 
 // Vérifie si le paramètre "page" est vide ou non présent dans l'URL
 if (empty($_GET["page"])) {
@@ -14,7 +20,7 @@ if (empty($_GET["page"])) {
     
     // On découpe cette chaîne en segments, en séparant sur le caractère "/"
     // Cela donne un tableau, ex : ["chauffeurs", "3"]
-    $url = $_GET['page'];
+    $url = explode("/", $_GET['page']);
     
     // Affiche le contenu du tableau pour vérifier comment l’URL est interprétée
 
@@ -28,11 +34,44 @@ if (empty($_GET["page"])) {
             } else {
                 // Sinon, on affiche tous les chauffeurs
                 $chauffeurController->getAllChauffeurs();
-            }
+            } 
             break;
         
+        case "clients" : 
+            // Si un second segment est présent (ex: un ID), on l’utilise
+            if (isset($url[1])) {
+                // Exemple : /clients/3 → affiche les infos du client 3
+                $clientController->getClientById($url[1]);
+            } else {
+                // Sinon, on affiche tous les clients
+                $clientController->getAllClients();
+            } 
+            break;
+
+        case "trajets" : 
+            // Si un second segment est présent (ex: un ID), on l’utilise
+            if (isset($url[1])) {
+                // Exemple : /trajets/3 → affiche les infos du trajet 3
+                $trajetController->getTrajetById($url[1]);
+            } else {
+                // Sinon, on affiche tous les trajets
+                $trajetController->getAllTrajets();
+            } 
+            break;
+
+        case "voitures" : 
+            // Si un second segment est présent (ex: un ID), on l’utilise
+            if (isset($url[1])) {
+            // Exemple : /voitures/3 → affiche les infos de la voiture 3
+            $voitureController->getVoitureById($url[1]);
+            } else {
+            // Sinon, on affiche toutes les voitures
+            $voitureController->getAllVoitures();
+            } 
+            break;
+
         // Si la ressource n'existe pas, on renvoie un message d’erreur
         default :
             echo "La page n'existe pas";
     }
-} 
+}
